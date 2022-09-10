@@ -1,21 +1,23 @@
 
 
 <template>
-  <h1>IronContacts</h1>
+  <h1 class="display-1">IronContacts</h1>
 
 <div class="container">
-  <table>
-    <thead>
+  <table class="table table-hover">
+    <thead class="thead-dark">
         <tr>
-            <th>Picture</th>
-            <th>Name</th>
-            <th>Popularity</th>
+            <th class="col">Picture</th>
+            <th class="col">Name</th>
+            <th class="col">Popularity</th>
+            <th class="col">Won an Oscar</th>
+            <th class="col">Won an Emmy</th>
         </tr>
     </thead>
 
     <tbody>
         <tr v-for="(element, index) of ListOfContacts" :key="index">
-            <td>
+            <td scope="row">
               <img
               :src="element.pictureUrl"
               :alt="element.name + ` image`"
@@ -24,6 +26,8 @@
             </td>
             <td> {{ element.name }}</td>
             <td>{{ element.popularity }}</td>
+            <td>{{ wonAward(element.wonOscar) }}</td>
+            <td>{{ wonAward(element.wonEmmy) }}</td>
         </tr>
     </tbody>
   </table>
@@ -84,6 +88,15 @@
           },
         ],
       };
+    },
+    methods: {
+      wonAward(element) {
+        if (element === true || element === true){
+          return "🏆";
+        } else {
+          return "❌";
+        }
+      }
     },
   };
   </script>
