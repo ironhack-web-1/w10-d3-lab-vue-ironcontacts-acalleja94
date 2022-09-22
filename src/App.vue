@@ -1,13 +1,61 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <h1 class="display-1 text-primary">IronContacts</h1>
+
+<div class="container container__pos">
+  <table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col col__style">Picture</th>
+            <th class="col col__style">Name</th>
+            <th class="col col__style">Popularity</th>
+            <th class="col col__style">Won an Oscar</th>
+            <th class="col col__style">Won an Emmy</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr v-for="(element, index) of contactSorted" :key="index">
+            <td scope="row">
+              <img
+              :src="element.pictureUrl"
+              :alt="element.name + ` image`"
+              class="image"
+            />
+            </td>
+            <td> {{ element.name }}</td>
+            <td>{{ element.popularity }}</td>
+            <td>{{ wonAward(element.wonOscar) }}</td>
+            <td>{{ wonAward(element.wonEmmy) }}</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
 </template>
+
+<script>
+  import contacts from "./contacts.json";
+  
+  export default {
+    data() {
+      return {
+        contactList: contacts,
+        contactSorted: contacts.slice(0, 5),
+      };
+    },
+    methods: {
+      wonAward(element) {
+        if (element === true || element === true){
+          return "🏆";
+        } else {
+          return "❌";
+        }
+      }
+    },
+  };
+  </script>
 
 <style>
 #app {
@@ -18,4 +66,19 @@ import HelloWorld from './components/HelloWorld.vue'
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.image{
+  width: 80px;
+  height: auto;
+}
+
+.col__style {
+  text-transform: uppercase;
+}
+
+.container__pos{
+  margin-top: 50px;
+}
+
 </style>
+
